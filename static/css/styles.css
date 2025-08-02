@@ -1,0 +1,162 @@
+/* Custom styles for Cat Loaf Rater */
+
+/* Smooth transitions for all elements */
+* {
+    transition: all 0.3s ease;
+}
+
+/* Custom animations */
+@keyframes bounce-in {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    70% {
+        transform: scale(0.9);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Apply animations */
+.results-enter {
+    animation: bounce-in 0.6s ease-out;
+}
+
+.slide-up {
+    animation: slide-up 0.5s ease-out;
+}
+
+/* Custom upload area hover effects */
+#upload-area:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom button hover effects */
+#rate-btn:hover:not(:disabled) {
+    box-shadow: 0 8px 20px rgba(251, 146, 60, 0.4);
+}
+
+/* Score emoji animations */
+#score-emoji {
+    transition: transform 0.3s ease;
+}
+
+#score-emoji:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Progress bar animation */
+#score-bar {
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Loading spinner custom animation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fbbf24;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #f59e0b;
+}
+
+/* Responsive text adjustments */
+@media (max-width: 640px) {
+    h1 {
+        font-size: 2.5rem !important;
+    }
+    
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Custom focus styles */
+button:focus, input:focus {
+    outline: 2px solid #fbbf24;
+    outline-offset: 2px;
+}
+
+/* Error message styling */
+#error-message {
+    border-left: 4px solid #ef4444;
+}
+
+/* Success message styling */
+.success-message {
+    border-left: 4px solid #10b981;
+}
+
+/* Custom gradient text */
+.gradient-text {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Floating animation for emojis */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse animation for important elements */
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 5px rgba(251, 146, 60, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(251, 146, 60, 0.8);
+    }
+}
+
+.pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+} 

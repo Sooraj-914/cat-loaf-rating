@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Loaf Rater 🍞</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="bg-gradient-to-br from-orange-100 to-yellow-100 min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+                🍞 Cat Loaf Rater 🐱
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Upload a photo of your cat and find out how much they resemble a perfect bread loaf! 
+                Our advanced loaf detection algorithm will rate your cat's loafing skills.
+            </p>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 mb-8">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">Rate My Loaf!</h2>
+                <p class="text-gray-600">Drag & drop or click to upload your cat photo</p>
+            </div>
+
+            <!-- Upload Area -->
+            <div id="upload-area" class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-orange-400 transition-colors">
+                <div id="upload-content">
+                    <div class="text-6xl mb-4">📸</div>
+                    <p class="text-gray-600 mb-2">Click to upload or drag & drop</p>
+                    <p class="text-sm text-gray-500">Supports: JPG, PNG, GIF, BMP (max 16MB)</p>
+                </div>
+                <div id="preview-content" class="hidden">
+                    <img id="preview-image" class="max-w-full max-h-64 mx-auto rounded-lg" alt="Preview">
+                    <p class="text-sm text-gray-500 mt-2">Click to change image</p>
+                </div>
+            </div>
+
+            <input type="file" id="file-input" accept="image/*" class="hidden">
+
+            <!-- Rate Button -->
+            <button id="rate-btn" class="w-full mt-6 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-bold py-3 px-6 rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none" disabled>
+                🍞 Rate My Loaf!
+            </button>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 hidden">
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-2">Loaf Rating Results</h2>
+            </div>
+
+            <!-- Score Display -->
+            <div class="text-center mb-6">
+                <div class="text-6xl mb-4" id="score-emoji">🍞</div>
+                <div class="text-4xl font-bold text-gray-800 mb-2">
+                    <span id="score-value">0</span>%
+                </div>
+                <p class="text-lg text-gray-600" id="score-feedback">Loading...</p>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="mb-6">
+                <div class="flex justify-between text-sm text-gray-600 mb-2">
+                    <span>Loaf Score</span>
+                    <span id="score-percentage">0%</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div id="score-bar" class="bg-gradient-to-r from-orange-500 to-yellow-500 h-4 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <!-- Details -->
+            <div class="bg-gray-50 rounded-xl p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Technical Details</h3>
+                <div class="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <span class="text-gray-600">Aspect Ratio:</span>
+                        <span id="aspect-ratio" class="font-mono">0.000</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-600">Area Ratio:</span>
+                        <span id="area-ratio" class="font-mono">0.000</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-600">Symmetry Score:</span>
+                        <span id="symmetry-score" class="font-mono">0.000</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-600">Posture Score:</span>
+                        <span id="posture-score" class="font-mono">0.000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Try Again Button -->
+            <button id="try-again-btn" class="w-full mt-6 bg-gray-500 text-white font-bold py-3 px-6 rounded-xl hover:bg-gray-600 transition-all">
+                🐱 Rate Another Cat
+            </button>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8 text-center hidden">
+            <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-orange-500 mx-auto mb-4"></div>
+            <p class="text-gray-600">Analyzing your cat's loafing skills...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message" class="max-w-2xl mx-auto bg-red-50 border border-red-200 rounded-xl p-6 text-center hidden">
+            <div class="text-red-600 text-lg font-semibold mb-2">Oops! Something went wrong</div>
+            <p id="error-text" class="text-red-600">Please try again with a different image.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-gray-500">
+        <p>🍞 Built with love for cat loaf enthusiasts 🐱</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
